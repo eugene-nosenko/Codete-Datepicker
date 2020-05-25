@@ -8,11 +8,12 @@ import MomentUtils from "@date-io/moment";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 
 // Redux
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
+import reduxThunk from "redux-thunk";
 import { Provider } from "react-redux";
 import rootReducer from "./store/reducers/rootReducer";
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(reduxThunk));
 
 const app = (
   <Provider store={store}>

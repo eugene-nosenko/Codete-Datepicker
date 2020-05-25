@@ -25,7 +25,6 @@ const TimeSlot = ({ value, chooseTime, reservedTimes }) => (
 );
 
 const Timepicker = ({ reservedTimes, chooseTime }) => {
-  console.log(reservedTimes);
   return (
     <div className={"time-list"}>
       {times.map((time, key) => (

@@ -4,43 +4,24 @@ import Datapicker from "./Datepicker";
 import Timepicker from "./Timepicker";
 import {
   createScheduleDate,
-  setReservedTimesFromApi,
+  addReservedTime,
+  getAllReservedTime,
 } from "./store/actions/schedule";
 
 import { connect } from "react-redux";
 import moment from "moment";
-import axios from "axios";
 
 export const dateFormatTemplate = "YYYY-MM-DD";
 
 class App extends React.Component {
   componentDidMount() {
-    axios
-      .get("https://codete-react.firebaseio.com/schedule.json")
-      .then((response) => {
-        this.props.setReservedTimesFromApi(response.data.schedule);
-      });
+    this.props.getAllReservedTime();
   }
 
   chooseTime = (time) => {
-    const {
-      reservedTimes,
-      selectedDate,
-      times,
-      setReservedTimesFromApi,
-    } = this.props;
+    const { reservedTimes, selectedDate, times, addReservedTime } = this.props;
 
-    const newTimes = { ...times, [selectedDate]: [...reservedTimes, time] };
-
-    axios
-      .put("https://codete-react.firebaseio.com/schedule.json", {
-        schedule: newTimes,
-      })
-      .then((response) => {
-        setReservedTimesFromApi(response.data.schedule);
-        console.warn(response);
-      })
-      .catch((e) => console.log(e));
+    addReservedTime({ times, time, selectedDate, reservedTimes });
   };
 
   chooseDate = (date) => {
@@ -79,8 +60,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     createScheduleDate: (date) => dispatch(createScheduleDate(date)),
-    setReservedTimesFromApi: (times) =>
-      dispatch(setReservedTimesFromApi(times)),
+    addReservedTime: (data) => dispatch(addReservedTime(data)),
+    getAllReservedTime: (id) => dispatch(getAllReservedTime(id)),
   };
 }
 
