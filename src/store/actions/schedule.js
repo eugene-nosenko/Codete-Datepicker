@@ -1,15 +1,16 @@
-import { CREATE_SCHEDULE_DATE, CREATE_SCHEDULE_TIME } from "./actionTypes";
+import { SELECT_DATE, SET_RESERVED_TIMES_FROM_API } from "./actionTypes";
 
 export function createScheduleDate(date) {
   console.log("action", date);
   return {
-    type: CREATE_SCHEDULE_DATE,
+    type: SELECT_DATE,
     date,
   };
 }
 
-export function createScheduleTime(time) {
+export function setReservedTimesFromApi(times) {
   return {
-    type: CREATE_SCHEDULE_TIME,
+    type: SET_RESERVED_TIMES_FROM_API,
+    times,
   };
 }

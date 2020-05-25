@@ -1,26 +1,27 @@
 import {
-  CREATE_SCHEDULE_DATE,
-  CREATE_SCHEDULE_TIME,
+  SELECT_DATE,
+  SET_RESERVED_TIMES_FROM_API,
 } from "../actions/actionTypes";
 
 const initialState = {
-  dates: [],
-  times: [],
+  selectedDate: null,
+  times: {},
 };
 
 export default function schedule(state = initialState, action) {
   switch (action.type) {
-    case CREATE_SCHEDULE_DATE:
+    case SELECT_DATE:
       return {
         ...state,
-        dates: [...state.dates, action.date],
+        selectedDate: action.date,
       };
 
-    case CREATE_SCHEDULE_TIME:
+    case SET_RESERVED_TIMES_FROM_API: {
       return {
         ...state,
-        times: [...state.times, action.time],
+        times: action.times,
       };
+    }
 
     default:
       return state;

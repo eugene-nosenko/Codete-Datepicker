@@ -4,6 +4,9 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
+import MomentUtils from "@date-io/moment";
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+
 // Redux
 import { createStore } from "redux";
 import { Provider } from "react-redux";
@@ -13,9 +16,9 @@ const store = createStore(rootReducer);
 
 const app = (
   <Provider store={store}>
-    <React.StrictMode>
+    <MuiPickersUtilsProvider utils={MomentUtils}>
       <App />
-    </React.StrictMode>
+    </MuiPickersUtilsProvider>
   </Provider>
 );
 
